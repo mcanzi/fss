@@ -1,0 +1,644 @@
+/* theme-sunset.css
+   The sunset theme of mcanzi.de for {revealjs}, in the colours of a
+   sunset over Almaty: the city in shadow for the background, warm haze for
+   the text, the orange sky for headings, the sun for accents, the light
+   around it for titles, and oranges drawn in ink over the background.
+   The theme of Introduction to Forensic Speech Science. Same rules as
+   theme-dark.css (statistics) and theme-buttercup.css
+   (advanced_statistics); only the palette and the background differ. */
+
+/* ---- fonts: the website's own files (fonts/, licences: fonts/OFL-*.txt).
+   Pandoc embeds them in the HTML, so the slides need no internet and send
+   nothing to third parties. */
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fonts/atkinson-regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fonts/atkinson-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fonts/atkinson-bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("fonts/bricolage-grotesque.woff2") format("woff2");
+  font-weight: 200 800; font-stretch: 75% 100%; font-style: normal;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/jetbrains-mono-regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/jetbrains-mono-semibold.woff2") format("woff2");
+  font-weight: 600; font-style: normal;
+}
+
+:root {
+  --floor:      #13151c;   /* background: the city in shadow */
+  --understory: #191b24;   /* code panels, table header, fact cards */
+  --raised:     #20222d;
+  --vine:       #3a3240;   /* borders, grid lines: the plum haze */
+  --mist:       #f3e7da;   /* body text: warm haze */
+  --muted:      #a9978f;   /* secondary text */
+  --pandan:     #f28a1e;   /* the orange sky: headings, functions */
+  --hornbill:   #f6c445;   /* the sun: inline code, keywords */
+  --kingfisher: #f6ad7b;   /* apricot: links, numbers */
+  --orchid:     #e39abd;   /* pink haze: strings */
+  --moss:       #97807a;   /* list markers */
+  --comment:    #978c88;   /* code comments */
+  --operator:   #d9cbbf;   /* operators in code */
+  --strong:     #ffffff;
+  --shadow:     0 18px 50px rgba(0, 0, 0, 0.45);
+  --glow-1:     rgba(242, 138, 30, 0.14);   /* the sun, top right */
+  --glow-2:     rgba(181, 75, 51, 0.07);
+  --title-top:  #fdf0c4;   /* titles: the light next to the sun above, the horizon below */
+  --title-bottom: #ec6a0f;
+  --on-accent:  #13151c;
+  --marker:     rgba(246, 196, 69, 0.28);   /* emphasis highlighter: the sun */
+  --output-bg:  #161820;   /* R output under the code */
+  --error:      #e0675f;
+
+  /* the {revealjs} base theme reads these */
+  --r-background-color: var(--floor);
+  --r-main-color: var(--mist);
+  --r-heading-color: var(--pandan);
+  --r-link-color: var(--kingfisher);
+  --r-link-color-hover: var(--pandan);
+  --r-selection-background-color: var(--pandan);
+  --r-selection-color: var(--on-accent);
+}
+
+/* footer text: each lecture sets it in the style block at its start */
+:root {
+  --footer-text: "";
+}
+
+/* ---- canvas: the website's background drawing, faint, in tiles -------
+   The tile is img/motifs/oranges.svg from mcanzi.de (oranges drawn
+   in ink), with its opacity built in. */
+
+.reveal-viewport,
+body {
+  background-color: var(--floor);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 xmlns:xlink=%22http://www.w3.org/1999/xlink%22 width=%22600%22 height=%22600%22 viewBox=%220 0 600 600%22%3E%3Cdefs%3E%3CclipPath id=%22body-clip%22%3E%3Cpath d=%22M0 -44C24 -45 45 -25 44 0C45 25 24 45 0 44C-25 45 -45 24 -44 0C-45 -24 -24 -43 0 -44Z%22/%3E%3C/clipPath%3E%3CclipPath id=%22leaf-clip%22%3E%3Cpath d=%22M2 -50C10 -70 36 -80 58 -70C48 -50 24 -42 2 -50Z%22/%3E%3C/clipPath%3E%3Cg id=%22o%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22%3E%3Cpath fill=%22%23a9541a%22 d=%22M0 -44C24 -45 45 -25 44 0C45 25 24 45 0 44C-25 45 -45 24 -44 0C-45 -24 -24 -43 0 -44Z%22/%3E%3Cg clip-path=%22url(%23body-clip)%22%3E%3Ccircle cx=%22-8%22 cy=%22-8%22 r=%2244%22 fill=%22%23e07a1f%22/%3E%3Cpath fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%222.4%22 d=%22M32.6 -15.9Q37.9 -13.8 34.5 -8.6M36.3 -9.7Q41.1 -6.5 36.7 -1.9M37.1 -2.6Q41.1 1.4 36.5 5.1M35 4.3Q38.2 8.8 33.3 11.5M33.4 10.9Q35.8 15.9 30.3 17.5M30.9 17.1Q32.2 22.5 26 22.6M28.1 23.6Q28.3 29.3 23 29.4M22.3 27.6Q21.5 33.1 15.9 31.1M17.6 33.1Q15.5 38.5 10.6 36.9M10.9 35.7Q7.9 40.5 3.2 37M4.1 38.7Q0 42.9 -4 37.8M-3.3 38.3Q-8.1 41.7 -11.1 36.4M-9.8 34.2Q-14.8 36.7 -16.3 30.7M-16.4 32.3Q-21.9 33.7 -23.2 28.7M27.7 0Q30.6 2.7 27.3 4.8M28.2 8.1Q30.2 11.6 26.4 12.9M25.1 15.7Q26 19.6 22 19.8M19.1 21.2Q19 25.1 15.1 24.2M12.8 26.2Q11.5 30.1 8 28.1M4.7 26.8Q2.6 30.1 0 27.3%22/%3E%3C/g%3E%3Cg fill=%22%230b0b0a%22%3E%3Ccircle cx=%2212.5%22 cy=%2217.7%22 r=%220.9%22/%3E%3Ccircle cx=%22-14.5%22 cy=%22-25.6%22 r=%221.2%22/%3E%3Ccircle cx=%2211.9%22 cy=%22-11.8%22 r=%221.2%22/%3E%3Ccircle cx=%22-20.1%22 cy=%22-13.5%22 r=%221.1%22/%3E%3Ccircle cx=%2218.5%22 cy=%22-29.1%22 r=%221.1%22/%3E%3Ccircle cx=%22-5%22 cy=%22-8.3%22 r=%221.3%22/%3E%3Ccircle cx=%22-21.6%22 cy=%22-28.6%22 r=%221.3%22/%3E%3Ccircle cx=%22-4.1%22 cy=%2218.4%22 r=%221.2%22/%3E%3Ccircle cx=%2220.7%22 cy=%223%22 r=%221%22/%3E%3Ccircle cx=%227.2%22 cy=%226.5%22 r=%221.3%22/%3E%3Ccircle cx=%2210.3%22 cy=%2210.8%22 r=%221.1%22/%3E%3Ccircle cx=%227.1%22 cy=%22-7.4%22 r=%221.1%22/%3E%3Ccircle cx=%22-31.2%22 cy=%22-10%22 r=%221.3%22/%3E%3Ccircle cx=%2210.4%22 cy=%22-11.9%22 r=%221.1%22/%3E%3Ccircle cx=%22-20.7%22 cy=%2225.4%22 r=%221.4%22/%3E%3Ccircle cx=%227.5%22 cy=%2210.5%22 r=%221%22/%3E%3C/g%3E%3Cg fill=%22%23ebe2cd%22%3E%3Cpath d=%22M-23.6 -11l1.5 -3.3 1.9 0.5 -1.5 3.3zM-23 -20.7l3.3 -3.6 1.8 1.1 -3.3 3.6zM-12.7 -20.4l3.5 -2.2 1.5 1.7 -3.5 2.2zM-9.9 -30.4l4.2 -1.4 1 1.8 -4.2 1.4zM-0.9 -27l5.1 -0.2 0.5 2.3 -5.1 0.2zM-9.6 -11.5l3.1 -2.6 1.7 1.5 -3.1 2.6zM-6.2 -16.9l4.3 -1.6 1.3 2.2 -4.3 1.6zM8 -32l4.8 1.2 -0.1 2 -4.8 -1.2zM-32.7 -9.4l1.5 -5.2 1.9 0.2 -1.5 5.2zM-1.7 -11.9l4.3 -0.6 0.7 2.3 -4.3 0.6z%22/%3E%3C/g%3E%3Cpath fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%224%22 d=%22M0 -44C24 -45 45 -25 44 0C45 25 24 45 0 44C-25 45 -45 24 -44 0C-45 -24 -24 -43 0 -44Z%22/%3E%3Cpath fill=%22%230b0b0a%22 d=%22M-7 -43l7 -5 7 5 -7 3z%22/%3E%3Cpath fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%224%22 d=%22M0 -46C1 -51 3 -55 7 -58%22/%3E%3C/g%3E%3Cg id=%22l%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22%3E%3Cpath fill=%22%236f8f45%22 d=%22M2 -50C10 -70 36 -80 58 -70C48 -50 24 -42 2 -50Z%22/%3E%3Cg clip-path=%22url(%23leaf-clip)%22%3E%3Cpath fill=%22%234e6a30%22 d=%22M2 -50C24 -58 40 -64 58 -70C48 -50 24 -42 2 -50Z%22/%3E%3Cpath fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%222%22 d=%22M12.1 -53.6l-3 9M18.8 -56l-3 9M25.5 -58.4l-3 9M32.2 -60.8l-3 9M39 -63.2l-3 9M45.7 -65.6l-3 9%22/%3E%3C/g%3E%3Cpath fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%222.2%22 d=%22M4 -50C22 -58 40 -64 56 -69%22/%3E%3Cpath fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%223.5%22 d=%22M2 -50C10 -70 36 -80 58 -70C48 -50 24 -42 2 -50Z%22/%3E%3C/g%3E%3Cg id=%22s%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22%3E%3Ccircle r=%2242%22 fill=%22%23e07a1f%22/%3E%3Ccircle r=%2236%22 fill=%22%23ebe2cd%22/%3E%3Cpath fill=%22%23f2a03d%22 stroke=%22%230b0b0a%22 stroke-width=%222.2%22 d=%22M0.5 -6L2.6 -32.9A33 33 0 0 1 19.2 -26.9L3.5 -4.9ZM4.2 -4.3L23.1 -23.5A33 33 0 0 1 31.9 -8.3L5.8 -1.5ZM6 -0.6L32.8 -3.2A33 33 0 0 1 29.8 14.2L5.4 2.6ZM4.9 3.4L27.2 18.7A33 33 0 0 1 13.7 30L2.5 5.5ZM1.6 5.8L8.8 31.8A33 33 0 0 1 -8.8 31.8L-1.6 5.8ZM-2.5 5.5L-13.7 30A33 33 0 0 1 -27.2 18.7L-4.9 3.4ZM-5.4 2.6L-29.8 14.2A33 33 0 0 1 -32.8 -3.2L-6 -0.6ZM-5.8 -1.5L-31.9 -8.3A33 33 0 0 1 -23.1 -23.5L-4.2 -4.3ZM-3.5 -4.9L-19.2 -26.9A33 33 0 0 1 -2.6 -32.9L-0.5 -6Z%22/%3E%3Cpath fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%221.6%22 d=%22M3.1 -14.2L5.6 -21.9M5.9 -16.3L9.5 -23.5M8.6 -16.4L13.1 -23M11.8 -9.1L18.6 -13.4M10.4 -6L17.7 -9.4M15.4 -6.3L23.1 -8.5M16 0.6L24 1.8M18 3.2L25.7 5.5M21.4 6.9L28.7 10.3M14.5 13.2L19.8 19.3M11.4 13.5L15.8 20.2M10 15.9L13.5 23.1M2.6 19.3L2.7 27.3M0 12.6L-0.7 20.6M-3 21.7L-5.1 29.5M-11 17.4L-16.1 23.6M-13.9 16.6L-19.8 22M-15.4 14L-22 18.6M-15.5 5L-23.4 6.6M-16.1 2.8L-24.2 3.4M-13.1 0.5L-21.1 0.1M-17.6 -7.2L-24.6 -11.1M-11 -6.3L-17.5 -11M-10.1 -7.8L-15.9 -13.3M-6.7 -12.7L-9.7 -20.1M-4.7 -13L-6.7 -20.7M-3.3 -15.4L-4.2 -23.4%22/%3E%3Cpath fill=%22%23ebe2cd%22 stroke=%22%230b0b0a%22 stroke-width=%222%22 d=%22M12 -14c3 -4 7 -5 9 -3 0 3 -3 6 -8 6z%22/%3E%3Ccircle r=%224%22 fill=%22%23ebe2cd%22 stroke=%22%230b0b0a%22 stroke-width=%222%22/%3E%3Ccircle r=%2236%22 fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%222%22/%3E%3Ccircle r=%2242%22 fill=%22none%22 stroke=%22%230b0b0a%22 stroke-width=%224%22/%3E%3C/g%3E%3Cg id=%22ol%22%3E%3Cuse xlink:href=%22%23l%22 href=%22%23l%22/%3E%3Cuse xlink:href=%22%23l%22 href=%22%23l%22 transform=%22scale(-0.75 0.75) translate(-2 -14)%22/%3E%3Cuse xlink:href=%22%23o%22 href=%22%23o%22/%3E%3C/g%3E%3Cg id=%22pair%22%3E%3Cuse xlink:href=%22%23o%22 href=%22%23o%22 transform=%22translate(-30 8) scale(0.8) rotate(-18)%22/%3E%3Cuse xlink:href=%22%23ol%22 href=%22%23ol%22 transform=%22translate(30 0) rotate(10)%22/%3E%3C/g%3E%3C/defs%3E%3Cg opacity=%220.15%22%3E%3Cuse xlink:href=%22%23ol%22 href=%22%23ol%22 transform=%22translate(96 112) rotate(-10)%22/%3E%3Cuse xlink:href=%22%23s%22 href=%22%23s%22 transform=%22translate(320 78) rotate(14) scale(0.72)%22/%3E%3Cuse xlink:href=%22%23o%22 href=%22%23o%22 transform=%22translate(500 176) rotate(24) scale(0.78)%22/%3E%3Cuse xlink:href=%22%23s%22 href=%22%23s%22 transform=%22translate(214 268) rotate(-32) scale(0.95)%22/%3E%3Cuse xlink:href=%22%23pair%22 href=%22%23pair%22 transform=%22translate(418 392) scale(0.95)%22/%3E%3Cuse xlink:href=%22%23s%22 href=%22%23s%22 transform=%22translate(76 420) rotate(6) scale(0.7)%22/%3E%3Cuse xlink:href=%22%23o%22 href=%22%23o%22 transform=%22translate(240 506) rotate(40) scale(0.6)%22/%3E%3Cuse xlink:href=%22%23s%22 href=%22%23s%22 transform=%22translate(540 528) rotate(-8) scale(0.5)%22/%3E%3C/g%3E%3C/svg%3E") 0 0 / 64vmin 64vmin repeat fixed,
+    radial-gradient(ellipse 75% 60% at 85% -15%, var(--glow-1), transparent 70%) fixed,
+    radial-gradient(ellipse 60% 50% at 0% 70%, var(--glow-2), transparent 70%) fixed,
+    var(--floor);
+}
+
+.reveal {
+  font-family: "Atkinson Hyperlegible", "Segoe UI", sans-serif;
+  font-size: 36px;
+  line-height: 1.4;
+  color: var(--mist);
+}
+
+.reveal .slides section {
+  text-align: left;
+}
+
+/* ---- headings ----------------------------------------------------- */
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", sans-serif;
+  font-weight: 800;
+  color: var(--pandan);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.reveal h2 {
+  font-size: 1.45em;
+  margin-bottom: 0.55em;
+}
+
+.reveal h1 code,
+.reveal h2 code {
+  color: inherit;
+  font-weight: 600;
+}
+
+/* ---- title slide and section slides ------------------------------- */
+
+.reveal #title-slide,
+.reveal section.title-slide.level1 {
+  min-height: 700px;
+  box-sizing: border-box;
+}
+
+.reveal section.title-slide.level1 {
+  padding-top: 2.4em;
+}
+
+/* lecture number above the title, set in each lecture's style block
+   (--lecture, made in slides_setup.R) */
+.reveal #title-slide::before {
+  content: var(--lecture);
+  display: block;
+  margin-top: 64px;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-variant-ligatures: none;
+  font-size: 0.56em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--hornbill);
+}
+
+.reveal #title-slide h1.title {
+  font-size: 2.6em;
+  margin-top: 0.3em;
+  margin-bottom: 0.25em;
+  max-width: 14ch;
+}
+
+.reveal #title-slide .subtitle {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--mist);
+}
+
+.reveal #title-slide .author {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 0.7em;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+  margin-top: 2.2em;
+}
+
+.reveal section.title-slide.level1 > h1,
+.reveal #title-slide h1.title {
+  /* wrap between words only, never inside a word */
+  overflow-wrap: normal;
+  word-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+
+.reveal section.title-slide.level1 > h1 {
+  font-size: 2.6em;
+  max-width: 80%;
+}
+
+/* the title of the title slide and of the section slides: a gradient from
+   --title-top to --title-bottom (set with the palette above), as the name
+   and the page titles on mcanzi.de */
+.reveal #title-slide h1.title,
+.reveal section.title-slide.level1 > h1 {
+  background: linear-gradient(180deg, var(--title-top) 8%, var(--title-bottom) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- fact cards on the section slides (::: {.fact} in the Rmd) -------
+   Like the cards on the home page of the website: paper panel, a thin
+   accent line on top, a small label, and the source in small mono type. */
+
+.reveal .fact {
+  position: relative;
+  max-width: 66%;
+  margin: 0.9em 0 0;
+  padding: 0.95em 1.15em 0.8em;
+  font-size: 0.64em;
+  line-height: 1.5;
+  color: var(--mist);
+  background: color-mix(in srgb, var(--understory) 88%, transparent);
+  border: 1px solid var(--vine);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.reveal .fact::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 10px 10px 0 0;
+  background: var(--pandan);
+}
+
+.reveal .fact p {
+  margin: 0;
+}
+
+/* "Did you know:" becomes a small label above the fact */
+.reveal .fact > p:first-child > code:first-child {
+  display: block;
+  width: max-content;
+  margin: 0 0 0.55em;
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--hornbill);
+}
+
+.reveal .fact > p:first-child > code:first-child::before {
+  content: "> ";
+  color: var(--pandan);
+}
+
+.reveal .fact code {
+  font-size: 0.9em;
+}
+
+/* the source: small, muted, below a faint line */
+.reveal .fact > p + p {
+  margin-top: 0.85em;
+  padding-top: 0.55em;
+  border-top: 1px dashed var(--vine);
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-variant-ligatures: none;
+  font-size: 0.62em;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.reveal .fact > p + p em {
+  font-style: normal;
+  color: inherit;
+}
+
+.reveal .fact > p + p em em {
+  font-style: italic;
+}
+
+/* ---- takeaway boxes (::: {.takeaway} in the Rmd, on the Summary slides) */
+
+.reveal .takeaway {
+  position: relative;
+  margin: 0.4em 0 0;
+  padding: 1.75em 1.15em 0.7em;
+  font-size: 0.86em;
+  background: color-mix(in srgb, var(--understory) 88%, transparent);
+  border: 1px solid var(--vine);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.reveal .takeaway::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 10px 10px 0 0;
+  background: var(--kingfisher);
+}
+
+.reveal .takeaway::after {
+  content: "> take-home";
+  position: absolute;
+  top: 0.9em;
+  left: 1.95em;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 0.58em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--kingfisher);
+}
+
+.reveal .takeaway > :first-child { margin-top: 0; }
+.reveal .takeaway > :last-child { margin-bottom: 0; }
+
+/* ---- text --------------------------------------------------------- */
+
+/* emphasis, written [like this]{.hl} in the Rmd: a highlighter stroke,
+   so it cannot be mistaken for code (code stays in mono type) */
+.reveal .hl {
+  color: var(--strong);
+  background-image: linear-gradient(transparent 52%, var(--marker) 52%, var(--marker) 94%, transparent 94%);
+  padding: 0 0.06em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.reveal strong { color: var(--pandan); }
+.reveal em     { color: var(--mist); }
+
+.reveal a,
+.reveal a:hover {
+  color: var(--kingfisher);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--kingfisher) 45%, transparent);
+  text-underline-offset: 0.15em;
+  text-shadow: none;
+}
+
+.reveal ::selection {
+  background: var(--pandan);
+  color: var(--on-accent);
+}
+
+.reveal ul,
+.reveal ol {
+  display: block;
+  margin-left: 1.1em;
+}
+
+.reveal li { margin-bottom: 0.15em; }
+.reveal ul li::marker { color: var(--moss); }
+.reveal ol li::marker { color: var(--pandan); font-weight: 700; }
+
+.reveal blockquote {
+  background: color-mix(in srgb, var(--understory) 88%, transparent);
+  border-left: 3px solid var(--pandan);
+  border-radius: 6px;
+  box-shadow: none;
+  color: var(--mist);
+}
+
+/* ---- code --------------------------------------------------------- */
+
+.reveal code {
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  /* no ligatures: students must see |> and <- as typed */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  font-size: 0.88em;
+  color: var(--hornbill);
+  background: none;
+}
+
+.reveal div.sourceCode,
+.reveal pre,
+.reveal pre.sourceCode {
+  background: var(--understory);
+  border: 0;
+  box-shadow: none;
+}
+
+.reveal pre {
+  width: 100%;
+  margin: 0.45em 0;
+  font-size: 0.53em;
+  line-height: 1.4;
+  border-radius: 6px;
+  border-left: 3px solid var(--vine);
+}
+
+.reveal pre code {
+  padding: 0.6em 0.9em;
+  max-height: none;
+  color: var(--mist);
+  font-size: 1em;
+}
+
+/* syntax colours (every class pandoc uses, so nothing falls back to the
+   colours of the highlight style) */
+.reveal pre code span.fu { color: var(--pandan); }
+.reveal pre code span.kw,
+.reveal pre code span.cf,
+.reveal pre code span.pp,
+.reveal pre code span.im { color: var(--hornbill); font-weight: 400; }
+.reveal pre code span.st,
+.reveal pre code span.ch,
+.reveal pre code span.ss,
+.reveal pre code span.vs { color: var(--orchid); }
+.reveal pre code span.dv,
+.reveal pre code span.fl,
+.reveal pre code span.bn,
+.reveal pre code span.cn { color: var(--kingfisher); font-weight: 400; }
+.reveal pre code span.op,
+.reveal pre code span.ot,
+.reveal pre code span.sc,
+.reveal pre code span.er { color: var(--operator); font-weight: 400; }
+.reveal pre code span.at,
+.reveal pre code span.va,
+.reveal pre code span.dt,
+.reveal pre code span.bu,
+.reveal pre code span.ex { color: var(--mist); }
+.reveal pre code span.co,
+.reveal pre code span.do,
+.reveal pre code span.cv,
+.reveal pre code span.in,
+.reveal pre code span.an,
+.reveal pre code span.wa { color: var(--comment); font-style: italic; font-weight: 400; }
+.reveal pre code span.al { color: var(--pandan); font-weight: 600; }
+
+/* R output: its own block, straight under the code, in muted type, so
+   what students type and what R prints are easy to tell apart */
+.reveal div.sourceCode:has(+ pre.r-output) {
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.reveal div.sourceCode:has(+ pre.r-output) pre {
+  margin-bottom: 0;
+}
+.reveal pre.r-output {
+  margin-top: 0;
+  background: var(--output-bg);
+  border-left: 3px solid var(--vine);
+  border-radius: 0 0 6px 6px;
+}
+.reveal pre.r-output + pre.r-output,
+.reveal pre.r-output + div.sourceCode {
+  margin-top: 0.3em;
+}
+.reveal pre.r-output code {
+  color: var(--muted);
+  padding-top: 0.45em;
+  padding-bottom: 0.5em;
+}
+.reveal pre.r-message code { font-style: italic; }
+.reveal pre.r-error code { color: var(--error); }
+
+/* ---- images and plots ------------------------------------------- */
+
+.reveal section img {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 380px;
+  margin: 0.3em auto;
+}
+
+.reveal section.smaller img {
+  max-height: 340px;
+}
+
+/* formulas written as text (no MathJax needed, works offline) */
+.reveal .formula {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 1.15em;
+  text-align: center;
+  color: var(--pandan);
+  margin: 0.5em 0;
+}
+
+/* ---- tables ------------------------------------------------------- */
+
+.reveal table {
+  font-size: 0.75em;
+  margin: 0.5em 0;
+  border: 0;
+  border-collapse: collapse;
+}
+
+/* no dotted grey grid from the {revealjs} defaults: only rules between rows */
+.reveal table th,
+.reveal table td {
+  border: 0;
+}
+
+.reveal table th {
+  color: var(--pandan);
+  font-weight: 700;
+  background: var(--understory);
+  border-bottom: 2px solid var(--vine);
+}
+
+.reveal table th,
+.reveal table td {
+  padding: 0.3em 0.75em;
+}
+
+.reveal table td {
+  border-bottom: 1px solid var(--vine);
+}
+
+/* ---- helpers used in the slides ----------------------------------- */
+
+.reveal .slides section.smaller {
+  font-size: 0.75em;
+}
+
+.reveal .slides section.smaller > h2 {
+  font-size: calc(1.45em / 0.75);
+}
+
+/* reference lists: small enough that long lists stay above the footer */
+.reveal .slides section.refs {
+  font-size: 0.6em;
+}
+
+.reveal .slides section.refs > h2 {
+  font-size: calc(1.45em / 0.6);
+}
+
+.reveal .slides section.refs li {
+  margin-bottom: 0.35em;
+}
+
+
+.reveal .columns {
+  display: flex;
+  gap: 1.2em;
+}
+
+.reveal .column {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- chrome (footer text is set per lecture) ---------------------- */
+
+.reveal .controls { color: var(--pandan); }
+#customcontrols button,
+#customcontrols i { color: var(--muted) !important; }
+#customcontrols button:hover i { color: var(--pandan) !important; }
+.reveal .progress { color: var(--pandan); height: 4px; }
+
+.reveal .slide-number {
+  /* bottom left, on the same line as the footer */
+  left: 18px;
+  right: auto;
+  bottom: 14px;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-variant-ligatures: none;
+  font-size: 13px;
+}
+.reveal .slide-number a,
+.reveal .slide-number a:hover { color: inherit; text-decoration: none; }
+
+.reveal::after {
+  content: var(--footer-text);
+  position: fixed;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* ---- course links: repository in the footer, QR codes -------------- */
+/* Each lecture sets --qr (a data URI made in R with {qrcode}).          */
+
+:root {
+  --repo-text: "github.com/mcanzi/fss";
+  --qr: none;
+}
+
+.reveal::after {
+  /* non-breaking spaces: pandoc collapses ordinary spaces in CSS strings */
+  content: var(--footer-text) "\0000A0\0000A0\0000A0\0000B7\0000A0\0000A0\0000A0" var(--repo-text);
+}
+
+/* small QR code on the title slide, bottom left */
+.reveal #title-slide::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 64px;
+  width: 128px;
+  height: 128px;
+  background: var(--qr) center / contain no-repeat;
+  border-radius: 8px;
+}
+
+/* closing slide: large QR code with the links */
+.reveal .qr-block {
+  display: flex;
+  align-items: center;
+  gap: 1.4em;
+  margin-top: 0.8em;
+}
+.reveal .qr-block img {
+  width: 300px;
+  height: 300px;
+  margin: 0;
+  border-radius: 10px;
+  flex: none;
+}
+.reveal .qr-block p { margin: 0 0 0.25em; font-size: 0.9em; }
+.reveal .qr-block p.qr-link {
+  font-family: "JetBrains Mono", monospace;
+  font-variant-ligatures: none;
+  font-size: 0.58em;
+  color: var(--hornbill);
+  margin-bottom: 1.1em;
+}
