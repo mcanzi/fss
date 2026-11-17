@@ -1,30 +1,11 @@
 ---
 title: "Linguistic analysis in the asylum procedure"
 subtitle: "Where did this speaker grow up?"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Linguistic analysis in the asylum procedure"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Linguistic analysis in the asylum procedure";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -112,7 +92,9 @@ Without papers, two kinds of evidence can show where someone comes from: their b
 
 ## Outcomes differ a lot
 
-```{r outcomes, fig.height = 3.4}
+```{r}
+#| label: outcomes
+#| fig-height: 3.4
 out <- tibble(country = c("Netherlands (2008)", "Switzerland", "United Kingdom"),
               share = c(43, 50, 5)) |>
   mutate(country = fct_inorder(country))
@@ -254,7 +236,9 @@ Placing someone by their speech seems easy: we do it every time we meet a strang
 
 ## Native or not?
 
-```{r nativeness, fig.height = 3.7}
+```{r}
+#| label: nativeness
+#| fig-height: 3.7
 set.seed(70)
 rate <- function(n, p) sample(1:6, n, replace = TRUE, prob = p)
 nat <- bind_rows(

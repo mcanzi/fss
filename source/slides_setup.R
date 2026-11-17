@@ -52,7 +52,8 @@ options(
   ggplot2.discrete.fill = c(kingfisher, hornbill, orchid)
 )
 
-lecture_file <- sub("(\\.knit)?\\.(Rmd|md)$", ".html", knitr::current_input())
+# Quarto knits a copy such as 01_course_introduction.rmarkdown
+lecture_file <- sub("\\..*$", ".html", basename(knitr::current_input()))
 lecture_count <- 12
 lecture_label <- sprintf('"lecture %s / %s"', substr(lecture_file, 1, 2), lecture_count)
 slides_url <- paste0("https://mcanzi.de/fss/", lecture_file)

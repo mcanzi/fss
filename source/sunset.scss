@@ -1,46 +1,43 @@
-/* theme-sunset.css
-   The sunset theme of mcanzi.de for {revealjs}, in the colours of a
-   sunset over Almaty: the city in shadow for the background, warm haze for
-   the text, the orange sky for headings, the sun for accents, the light
+/* sunset.scss
+   The sunset theme of mcanzi.de as a Quarto revealjs theme, in the colours
+   of a sunset over Almaty: the city in shadow for the background, warm haze
+   for the text, the orange sky for headings, the sun for accents, the light
    around it for titles, and oranges drawn in ink over the background.
-   The theme of Introduction to Forensic Speech Science. Same rules as
-   theme-dark.css (statistics) and theme-buttercup.css
-   (advanced_statistics); only the palette and the background differ. */
+   The theme of Introduction to Forensic Speech Science, ported from the
+   {revealjs} version (theme-sunset.css). Same rules as buttercup.scss
+   (advanced_statistics); only the palette and the background differ. The
+   defaults below feed Quarto's own components; the rules follow the HTML
+   Quarto writes. Fonts: fonts.css. */
 
-/* ---- fonts: the website's own files (fonts/, licences: fonts/OFL-*.txt).
-   Pandoc embeds them in the HTML, so the slides need no internet and send
-   nothing to third parties. */
+/*-- scss:defaults --*/
 
-@font-face {
-  font-family: "Atkinson Hyperlegible";
-  src: url("fonts/atkinson-regular.woff2") format("woff2");
-  font-weight: 400; font-style: normal;
-}
-@font-face {
-  font-family: "Atkinson Hyperlegible";
-  src: url("fonts/atkinson-italic.woff2") format("woff2");
-  font-weight: 400; font-style: italic;
-}
-@font-face {
-  font-family: "Atkinson Hyperlegible";
-  src: url("fonts/atkinson-bold.woff2") format("woff2");
-  font-weight: 700; font-style: normal;
-}
-@font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("fonts/bricolage-grotesque.woff2") format("woff2");
-  font-weight: 200 800; font-stretch: 75% 100%; font-style: normal;
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("fonts/jetbrains-mono-regular.woff2") format("woff2");
-  font-weight: 400; font-style: normal;
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("fonts/jetbrains-mono-semibold.woff2") format("woff2");
-  font-weight: 600; font-style: normal;
-}
+$body-bg: #13151c;
+$body-color: #f3e7da;
+$link-color: #f6ad7b;
+$selection-bg: #f28a1e;
+$selection-color: #13151c;
+
+$font-family-sans-serif: "Atkinson Hyperlegible", "Segoe UI", sans-serif;
+$font-family-monospace: "JetBrains Mono", Menlo, Consolas, monospace;
+$presentation-font-size-root: 36px;
+$presentation-line-height: 1.4;
+$presentation-slide-text-align: left;
+
+$presentation-heading-font: "Bricolage Grotesque", "Atkinson Hyperlegible", sans-serif;
+$presentation-heading-color: #f28a1e;
+$presentation-heading-font-weight: 800;
+$presentation-heading-text-transform: none;
+$presentation-heading-letter-spacing: -0.02em;
+$presentation-heading-line-height: 1.05;
+$presentation-heading-text-shadow: none;
+
+$code-color: #f6c445;
+$code-bg: transparent;
+$code-block-bg: #191b24;
+$code-block-border-color: #3a3240;
+$code-block-font-size: 0.53em;
+
+/*-- scss:rules --*/
 
 :root {
   --floor:      #13151c;   /* background: the city in shadow */
@@ -75,11 +72,6 @@
   --r-link-color-hover: var(--pandan);
   --r-selection-background-color: var(--pandan);
   --r-selection-color: var(--on-accent);
-}
-
-/* footer text: each lecture sets it in the style block at its start */
-:root {
-  --footer-text: "";
 }
 
 /* ---- canvas: the website's background drawing, faint, in tiles -------
@@ -172,15 +164,33 @@ body {
   font-weight: 400;
   letter-spacing: 0;
   color: var(--mist);
+  line-height: 1.05;
+  margin: 0 0 20px;
 }
 
-.reveal #title-slide .author {
+/* Quarto centres the title block; the course slides keep it on the left */
+.reveal #title-slide {
+  text-align: left;
+}
+
+.reveal #title-slide .quarto-title-authors {
+  display: block;
+  /* 2.2em of the author's 0.7em type, as in the {revealjs} theme */
+  margin-top: 1.54em;
+}
+
+.reveal #title-slide .quarto-title-author {
+  padding: 0;
+}
+
+.reveal #title-slide .quarto-title-author-name {
   font-family: "Atkinson Hyperlegible", sans-serif;
   font-size: 0.7em;
   font-weight: 400;
   letter-spacing: 0;
   color: var(--muted);
-  margin-top: 2.2em;
+  line-height: 1.05;
+  margin: 0;
 }
 
 .reveal section.title-slide.level1 > h1,
@@ -440,24 +450,37 @@ body {
 .reveal pre code span.al { color: var(--pandan); font-weight: 600; }
 
 /* R output: its own block, straight under the code, in muted type, so
-   what students type and what R prints are easy to tell apart */
-.reveal div.sourceCode:has(+ pre.r-output) {
-  margin-bottom: 0;
+   what students type and what R prints are easy to tell apart.
+   Quarto writes each chunk as div.cell: the code, then one div.cell-output
+   per printed result, each wrapped for the copy button. */
+.reveal .cell {
+  margin: 0.45em 0;
+}
+.reveal .cell div.sourceCode,
+.reveal .cell pre {
+  margin: 0;
+}
+.reveal .cell > .code-copy-outer-scaffold:has(~ .cell-output) div.sourceCode,
+.reveal .cell > .code-copy-outer-scaffold:has(~ .cell-output) pre {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-.reveal div.sourceCode:has(+ pre.r-output) pre {
-  margin-bottom: 0;
-}
+.reveal .cell-output div.sourceCode,
 .reveal pre.r-output {
-  margin-top: 0;
   background: var(--output-bg);
   border-left: 3px solid var(--vine);
   border-radius: 0 0 6px 6px;
 }
-.reveal pre.r-output + pre.r-output,
-.reveal pre.r-output + div.sourceCode {
+.reveal .cell-output + .cell-output {
   margin-top: 0.3em;
+}
+/* students copy code, not output; and messages R prints as blank lines
+   get no empty block */
+.reveal .cell-output .code-copy-button {
+  display: none;
+}
+.reveal .cell-output:has(code:empty) {
+  display: none;
 }
 .reveal pre.r-output code {
   color: var(--muted);
@@ -561,9 +584,6 @@ body {
 /* ---- chrome (footer text is set per lecture) ---------------------- */
 
 .reveal .controls { color: var(--pandan); }
-#customcontrols button,
-#customcontrols i { color: var(--muted) !important; }
-#customcontrols button:hover i { color: var(--pandan) !important; }
 .reveal .progress { color: var(--pandan); height: 4px; }
 
 .reveal .slide-number {
@@ -581,18 +601,20 @@ body {
 .reveal .slide-number a,
 .reveal .slide-number a:hover { color: inherit; text-decoration: none; }
 
-.reveal::after {
-  content: var(--footer-text);
-  position: fixed;
+/* the footer: Quarto's own (footer: in each lecture's YAML), with the
+   repository after it */
+.reveal .footer {
   bottom: 14px;
-  left: 0;
-  right: 0;
-  text-align: center;
   font-family: "Atkinson Hyperlegible", sans-serif;
   font-size: 14px;
   color: var(--muted);
   pointer-events: none;
-  z-index: 30;
+}
+.reveal .footer p {
+  margin: 0;
+}
+.reveal .footer p::after {
+  content: "\0000A0\0000A0\0000A0\0000B7\0000A0\0000A0\0000A0" var(--repo-text);
 }
 
 /* ---- course links: repository in the footer, QR codes -------------- */
@@ -601,11 +623,6 @@ body {
 :root {
   --repo-text: "github.com/mcanzi/fss";
   --qr: none;
-}
-
-.reveal::after {
-  /* non-breaking spaces: pandoc collapses ordinary spaces in CSS strings */
-  content: var(--footer-text) "\0000A0\0000A0\0000A0\0000B7\0000A0\0000A0\0000A0" var(--repo-text);
 }
 
 /* small QR code on the title slide, bottom left */

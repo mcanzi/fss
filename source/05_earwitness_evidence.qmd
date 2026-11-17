@@ -1,30 +1,11 @@
 ---
 title: "Earwitness evidence"
 subtitle: "Voice recognition and voice parades"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Earwitness evidence"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Earwitness evidence";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -165,7 +145,9 @@ The suspect grew up in Glasgow and now lives in a small town in Cornwall, where 
 
 ## Is the parade fair?
 
-```{r mock, fig.height = 3.6}
+```{r}
+#| label: mock
+#| fig-height: 3.6
 set.seed(51)
 voices <- c(LETTERS[1:8], "J")
 mock <- bind_rows(
@@ -264,7 +246,9 @@ Leemann et al. (2024) group them by where they come from:
 
 ## Recording quality
 
-```{r telephone, fig.height = 3.6}
+```{r}
+#| label: telephone
+#| fig-height: 3.6
 tel <- tibble(pair = rep(c("Same speaker", "Different speakers"), each = 3),
               condition = rep(c("both studio", "both telephone", "studio + telephone"), 2),
               rating = c(3.1, 2.7, 4.0, 6.5, 6.0, 6.9)) |>
@@ -301,7 +285,9 @@ Simulated, following the pattern in Nolan, McDougall & Hudson (2013). Voices sou
 
 ## Delay
 
-```{r mcgehee, fig.height = 3.9}
+```{r}
+#| label: mcgehee
+#| fig-height: 3.9
 mcg <- tibble(days = c(1, 7, 14, 30, 90, 150), correct = c(83, 81, 69, 57, 35, 13),
               label = c("1 day", "1 week", "2 weeks", "1 month", "3 months", "5 months"))
 ggplot(mcg, aes(days, correct)) +
@@ -336,7 +322,9 @@ McGehee (1937): listeners picked a voice they had heard once out of five. After 
 
 ## Confidence and accuracy
 
-```{r confidence, fig.height = 3.7}
+```{r}
+#| label: confidence
+#| fig-height: 3.7
 set.seed(55)
 n_lis <- 40
 cf <- bind_rows(

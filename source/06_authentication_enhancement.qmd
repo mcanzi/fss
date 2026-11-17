@@ -1,30 +1,11 @@
 ---
 title: "Authentication, enhancement and speech content"
 subtitle: "Is the recording genuine, and what was said?"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Authentication, enhancement and speech content"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Authentication, enhancement and speech content";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -125,7 +105,9 @@ Several experts may listen together and reach a joint view.
 
 ## A change in the noise floor
 
-```{r noisefloor, fig.height = 3.6}
+```{r}
+#| label: noisefloor
+#| fig-height: 3.6
 set.seed(66)
 sr <- 2000
 t <- seq(0, 4, by = 1 / sr)
@@ -223,7 +205,9 @@ All three replace part of the signal with something that was not recorded. They 
 
 ## Hiss and fricatives
 
-```{r hiss, fig.height = 3.5}
+```{r}
+#| label: hiss
+#| fig-height: 3.5
 fr <- seq(100, 11000, by = 25)
 spec <- tibble(f = fr) |>
   mutate(Vowels = pmin(68, 68 - 25 * log10(f / 300)) + 8 * exp(-((f - 700) / 150)^2) +
@@ -383,7 +367,9 @@ A TV programme recorded a GP, originally from Greece, talking to an actor posing
 
 ## Voice onset time
 
-```{r vot, fig.height = 3.8}
+```{r}
+#| label: vot
+#| fig-height: 3.8
 set.seed(77)
 vot <- bind_rows(tibble(word = "dom", vot = rnorm(30, -70, 18)),
                  tibble(word = "Tim", vot = rnorm(30, 75, 15)))

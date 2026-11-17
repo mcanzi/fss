@@ -1,30 +1,11 @@
 ---
 title: "Expert witnesses"
 subtitle: "Reports, courts and legal systems"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Expert witnesses"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Expert witnesses";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -145,7 +125,9 @@ Over 100 published US judicial opinions mention language experts, excluding voic
 
 ## A century of rulings
 
-```{r timeline, fig.height = 3.6}
+```{r}
+#| label: timeline
+#| fig-height: 3.6
 ev <- tribble(
   ~year, ~label, ~where,
   1894, "R v Silverlock", "UK",
@@ -293,7 +275,9 @@ _Source: Koda et al. (2012), American Journal of Physical Anthropology_
 
 ## Few cases reach court
 
-```{r waffle, fig.height = 3.4}
+```{r}
+#| label: waffle
+#| fig-height: 3.4
 waf <- expand_grid(field = c("Forensic phonetics (about 3%)", "Shuy's linguistics cases (about 10%)"),
                    cell = 1:100) |>
   mutate(x = (cell - 1) %% 20, y = (cell - 1) %/% 20,

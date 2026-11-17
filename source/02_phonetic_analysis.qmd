@@ -1,30 +1,11 @@
 ---
 title: "Phonetic analysis"
 subtitle: "Segments, prosody and acoustic measurement"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Phonetic analysis"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Phonetic analysis";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -68,7 +48,9 @@ One of the earliest documented cases of expert speaker comparison (Labov, 1988).
 
 ## Two vowels
 
-```{r prinzivalli, fig.height = 4.3}
+```{r}
+#| label: prinzivalli
+#| fig-height: 4.3
 set.seed(2)
 tok <- function(who, word, f1, f2, n = 12) tibble(who, word, F1 = rnorm(n, f1, 35), F2 = rnorm(n, f2, 60))
 pz <- bind_rows(
@@ -130,7 +112,9 @@ With the tongue high and front and the lips spread, the output is [i]; with the 
 
 ## Source, filter, output
 
-```{r source-filter, fig.height = 4.5}
+```{r}
+#| label: source-filter
+#| fig-height: 4.5
 f0 <- 120
 freq <- seq(0, 4000, by = 5)
 res_gain <- function(f, fc, bw) fc^2 / sqrt((fc^2 - f^2)^2 + (bw * f)^2)
@@ -260,7 +244,9 @@ _Source: Charlton et al. (2011), Journal of Experimental Biology_
 
 ## Typical f0
 
-```{r f0-groups, fig.height = 3.9}
+```{r}
+#| label: f0-groups
+#| fig-height: 3.9
 set.seed(5)
 f0s <- bind_rows(
   tibble(group = "Adult men", f0 = rnorm(400, 113, 14)),
@@ -297,7 +283,9 @@ Voice quality comes partly from anatomy, but speakers also vary it (attitude), a
 
 ## Rhythm
 
-```{r rhythm, fig.height = 3.6}
+```{r}
+#| label: rhythm
+#| fig-height: 3.6
 eng <- tibble(syl = c("I", "don't", "think", "we", "can", "walk", "up", "the", "hill", "in", "this", "way"),
               stressed = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE))
 eng_dur <- c(0.30, 0.17, 0.33, 0.10, 0.11, 0.30, 0.10, 0.07, 0.34, 0.09, 0.12, 0.40)
@@ -330,7 +318,9 @@ Simulated syllable durations. English shortens unstressed syllables so that stre
 
 ## Speech tempo
 
-```{r tempo, fig.height = 2.6}
+```{r}
+#| label: tempo
+#| fig-height: 2.6
 chunks <- tibble(
   start = c(0, 1.60, 1.95, 3.55, 4.15, 5.74),
   end = c(1.60, 1.95, 3.55, 4.15, 5.74, 6.20),
@@ -369,7 +359,9 @@ We will use Praat in the practical sessions. Today is about what its measurement
 
 ## The waveform
 
-```{r waveform, fig.height = 3.6}
+```{r}
+#| label: waveform
+#| fig-height: 3.6
 set.seed(8)
 sr <- 16000
 tt <- seq(0, 0.08, by = 1 / sr)
@@ -391,7 +383,9 @@ Simulated signal. Voiceless sounds are [aperiodic]{.hl}; voiced sounds repeat wi
 
 ## From waveform to frequencies
 
-```{r fourier, fig.height = 4.2}
+```{r}
+#| label: fourier
+#| fig-height: 4.2
 tf <- seq(0, 0.02, length.out = 800)
 fr <- bind_rows(
   tibble(t = tf, part = "H1: 100 Hz (f0)", amp = sin(2 * pi * 100 * tf)),
@@ -441,7 +435,9 @@ Try a live spectrogram of your own voice: search for "Chrome Music Lab spectrogr
 
 ## Bigger tract, lower formants
 
-```{r formants, fig.height = 4.4}
+```{r}
+#| label: formants
+#| fig-height: 4.4
 cardinal <- tibble(
   vowel = c("i", "e", "ɛ", "a", "ɑ", "ɔ", "o", "u"),
   F1 = c(240, 390, 610, 850, 750, 500, 360, 250),
@@ -470,7 +466,9 @@ Approximate cardinal vowel formants for an adult man (Catford, 1988), scaled up 
 
 ## When the tracker gets it wrong
 
-```{r f0-errors, fig.height = 3.7}
+```{r}
+#| label: f0-errors
+#| fig-height: 3.7
 set.seed(11)
 track <- tibble(t = seq(0, 2.5, by = 0.01)) |>
   mutate(f0 = 125 - 14 * t + 12 * exp(-((t - 0.6)^2) / 0.02) + 8 * exp(-((t - 1.8)^2) / 0.03) + rnorm(n(), 0, 2),
@@ -512,7 +510,9 @@ In a bomb threat call, the caller's mean f0 comes out at 190 Hz. The suspect, in
 
 ## Jitter
 
-```{r jitter, fig.height = 3.6}
+```{r}
+#| label: jitter
+#| fig-height: 3.6
 set.seed(4)
 jit <- bind_rows(
   tibble(voice = "Regular vibration", cycle = 1:60, period = 8 + rnorm(60, 0, 0.05)),

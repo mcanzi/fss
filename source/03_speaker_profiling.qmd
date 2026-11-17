@@ -1,30 +1,11 @@
 ---
 title: "Speaker profiling"
 subtitle: "What a voice can and cannot tell us"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Speaker profiling"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Speaker profiling";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -150,7 +130,9 @@ _Source: Charlton, Reby & McComb (2007), Biology Letters_
 
 ## Swiss German f0
 
-```{r f0-sex, fig.height = 3.9}
+```{r}
+#| label: f0-sex
+#| fig-height: 3.9
 set.seed(31)
 sw <- bind_rows(
   tibble(sex = "Men", style = "Read", f0 = rnorm(500, 125, 18)),
@@ -191,7 +173,9 @@ The UK, Germany, Switzerland, France, the Netherlands and the US have long tradi
 
 ## A moving boundary
 
-```{r foot-strut, fig.height = 3.8}
+```{r}
+#| label: foot-strut
+#| fig-height: 3.8
 fs <- expand_grid(position = seq(0, 1, by = 0.01), period = c("1950s", "2016")) |>
   mutate(boundary = if_else(period == "1950s", 0.45, 0.6),
          split = plogis((boundary - position) * 14) * 100)
@@ -206,7 +190,9 @@ Simulated, to show the trend: the split spreads north, so a 1950s map can point 
 
 ## How good are experts?
 
-```{r koester, fig.height = 3.2}
+```{r}
+#| label: koester
+#| fig-height: 3.2
 kz <- tibble(group = fct_inorder(c("Forensic experts", "Naive listeners")), error = c(15, 60))
 ggplot(kz, aes(group, error)) +
   geom_col(fill = c(kingfisher, muted), width = 0.55) +
@@ -243,7 +229,9 @@ In practice, analysts usually report a broad area ("northern England"), narrowed
 
 ## Labov's department stores
 
-```{r labov, fig.height = 3.9}
+```{r}
+#| label: labov
+#| fig-height: 3.9
 lb <- expand_grid(store = fct_inorder(c("Saks", "Macy's", "S. Klein")),
                   word = fct_inorder(c("fourth", "floor")),
                   utterance = fct_inorder(c("First answer", "Repetition"))) |>
@@ -265,7 +253,9 @@ Simulated percentages showing the pattern Labov found: more /r/ in the upper-cla
 
 ## First and second language speakers
 
-```{r l2, fig.height = 3.6}
+```{r}
+#| label: l2
+#| fig-height: 3.6
 l2 <- tibble(language = fct_inorder(c("English", "French", "Urdu", "Swahili")),
              L1 = c(373, 80, 70, 16), L2 = c(1000, 194, 161, 55)) |>
   pivot_longer(c(L1, L2), names_to = "speakers", values_to = "millions") |>
@@ -307,7 +297,9 @@ Ethnologue (2022) figures, as reported in Leemann et al. (2024). An L2 speaker o
 
 ## Electrical network frequency
 
-```{r enf, fig.height = 3.9}
+```{r}
+#| label: enf
+#| fig-height: 3.9
 set.seed(12)
 grid <- tibble(t = 0:600, Hz = 50 + cumsum(rnorm(601, 0, 0.004)))
 grid$Hz <- grid$Hz - mean(grid$Hz) + 50
@@ -363,7 +355,9 @@ The conundrum: we usually do not know how the person normally speaks. In 1989, t
 
 ## Age
 
-```{r age, fig.height = 3.9}
+```{r}
+#| label: age
+#| fig-height: 3.9
 set.seed(7)
 ages <- bind_rows(
   tibble(sex = "Men", age = runif(300, 20, 85)) |>
@@ -421,7 +415,9 @@ _Source: Fitch & Reby (2001), Proceedings of the Royal Society B_
 
 ## Covering the face
 
-```{r mask, fig.height = 3.8}
+```{r}
+#| label: mask
+#| fig-height: 3.8
 set.seed(21)
 sp <- tibble(f = seq(200, 10000, by = 50)) |>
   mutate(open = -((f - 7000) / 2600)^2 * 9 + rnorm(n(), 0, 1.2),

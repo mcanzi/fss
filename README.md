@@ -21,9 +21,9 @@ The slides are online at [mcanzi.de/fss](https://mcanzi.de/fss/01_course_introdu
 
 ## Rendering the slides
 
-Knit `source/render_all.Rmd` to render every session into `docs`, which GitHub Pages serves. Knitting a single session also writes its HTML into `docs`. All sessions use the sunset theme of mcanzi.de (`source/theme-sunset.css`): the colours of a sunset over Almaty, with oranges drawn in ink in the background; `source/slides_setup.R` sets the plot colours to match it (orange, dusk blue and pink for groups). The fonts are in `source/fonts` and are embedded in each HTML file.
+The sessions are [Quarto](https://quarto.org) revealjs decks (`source/*.qmd`). Run `quarto render` in `source` to render every session into `docs`, which GitHub Pages serves; `quarto render 04_speaker_comparison.qmd`, or the Render button in RStudio, renders a single one. The options all sessions share (slide size, transitions, chunk defaults) are in `source/_quarto.yml`; each session's YAML has only its title, subtitle and footer. All sessions use the sunset theme of mcanzi.de (`source/sunset.scss`): the colours of a sunset over Almaty, with oranges drawn in ink in the background; `source/slides_setup.R` sets the plot colours to match it (orange, dusk blue and pink for groups). The fonts are in `source/fonts` (declared in `source/fonts.css`) and are embedded in each HTML file.
 
-Requires `simling` (`remotes::install_github("mcanzi/simling")`), `tidyverse` and `revealjs`; optional: `qrcode` (QR codes), `ragg` and `systemfonts` (Atkinson Hyperlegible in the figures).
+Requires [Quarto](https://quarto.org) (bundled with RStudio), `simling` (`remotes::install_github("mcanzi/simling")`) and `tidyverse`; optional: `qrcode` (QR codes), `ragg` and `systemfonts` (Atkinson Hyperlegible in the figures).
 
 ## License
 

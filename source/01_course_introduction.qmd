@@ -1,30 +1,14 @@
 ---
 title: "Course introduction"
 subtitle: "Forensic phonetics, forensic linguistics, and this course"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "massimiliano.canzi@uni-konstanz.de"
+format:
+  revealjs:
+    fig-height: 4.6
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.6, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +18,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "massimiliano.canzi@uni-konstanz.de";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -262,7 +245,9 @@ No: a single word is not a sound basis for a legal decision, and the book makes 
 
 ## No two samples are the same
 
-```{r vowels-sim, fig.height = 4.4}
+```{r}
+#| label: vowels-sim
+#| fig-height: 4.4
 set.seed(27)
 vowel_means <- tibble(
   vowel = c("FLEECE", "TRAP", "PALM"),
@@ -346,7 +331,9 @@ The expert then asks how much more likely the evidence is under one proposition 
 
 ## Similar is not enough
 
-```{r typicality, fig.height = 4.2}
+```{r}
+#| label: typicality
+#| fig-height: 4.2
 f0_mean <- 115
 f0_sd <- 20
 cases <- tibble(case = c("Case 1", "Case 2"), offender = c(116, 72), suspect = c(118, 74))

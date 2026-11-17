@@ -1,30 +1,11 @@
 ---
 title: "Authorship analysis"
 subtitle: "Profiling and comparing the writers of texts"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Authorship analysis"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Authorship analysis";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -103,7 +83,9 @@ With a closed set of candidates, comparison becomes [attribution]{.hl}: which of
 
 Schler et al. (2006) analysed blogs by 19,320 authors, balanced for gender within each age group.
 
-```{r blogs, fig.height = 2.8}
+```{r}
+#| label: blogs
+#| fig-height: 2.8
 set.seed(91)
 blogs <- expand_grid(age = c("10s", "20s", "30s+"), gender = c("Female", "Male"),
                      feature = c("Articles and prepositions", "Personal pronouns")) |>
@@ -171,7 +153,9 @@ In 1952, 19-year-old Derek Bentley was arrested with Christopher Craig after a b
 
 ## "I then"
 
-```{r ithen, fig.height = 3.1}
+```{r}
+#| label: ithen
+#| fig-height: 3.1
 fox <- tibble(corpus = rep(c("Written English", "Spoken English"), each = 2),
               order = rep(c("then I", "I then"), 2),
               n = c(235, 24, 202, 9)) |>
@@ -204,7 +188,9 @@ In 1787–88, Alexander Hamilton, James Madison and John Jay published essays in
 
 ## Upon
 
-```{r upon, fig.height = 3.5}
+```{r}
+#| label: upon
+#| fig-height: 3.5
 set.seed(92)
 upon <- bind_rows(
   tibble(group = "Hamilton (known)", rate = pmax(rnorm(30, 3.2, 1.1), 0.3)),
@@ -236,7 +222,9 @@ Burrows (2002) proposed a simple distance between a text and each candidate auth
 
 ## Delta in practice
 
-```{r delta, fig.height = 3.3}
+```{r}
+#| label: delta
+#| fig-height: 3.3
 set.seed(93)
 n_words <- 30
 base <- sort(rgamma(n_words, 2, 40), decreasing = TRUE)

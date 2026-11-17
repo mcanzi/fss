@@ -1,30 +1,11 @@
 ---
 title: "Praat practical 1"
 subtitle: "Measuring your own voice"
-author: "Dr Massimiliano Canzi"
-knit: (function(input, ...) rmarkdown::render(input, output_dir = file.path(dirname(input), "..", "docs")))
-output:
-  revealjs::revealjs_presentation:
-    theme: black
-    css: theme-sunset.css
-    highlight: zenburn
-    incremental: true
-    transition: fade
-    background_transition: fade
-    self_contained: true
-    reveal_options:
-      width: 1050
-      height: 700
-      slideNumber: "c/t"
-      showSlideNumber: all
-      controls: true
-      touch: true
-      transitionSpeed: fast
-      navigationMode: linear
+footer: "Praat practical 1"
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-                      fig.width = 10, fig.height = 4.4, out.width = "100%")
+```{r}
+#| label: setup
+#| include: false
 library(tidyverse)
 
 source("slides_setup.R", local = knitr::knit_global())
@@ -34,7 +15,6 @@ source("slides_setup.R", local = knitr::knit_global())
 
 <style>
   :root {
-    --footer-text:  "Praat practical 1";
     --qr:           `r qr_css`;
     --lecture:      `r lecture_label`;
   }
@@ -198,7 +178,9 @@ We then look at the class data together in R.
 
 ## A vowel space for the class
 
-```{r vowels, fig.height = 3.9}
+```{r}
+#| label: vowels
+#| fig-height: 3.9
 set.seed(91)
 vowels <- tribble(
   ~word, ~F1, ~F2,
@@ -231,7 +213,9 @@ These differences matter in the next session: a feature that varies a lot across
 
 ## Sentences A and B across the class
 
-```{r f0class, fig.height = 3.6}
+```{r}
+#| label: f0class
+#| fig-height: 3.6
 set.seed(92)
 f0c <- tibble(id = sprintf("S%02d", 1:20),
               A = c(rnorm(8, 115, 15), rnorm(12, 205, 22))) |>

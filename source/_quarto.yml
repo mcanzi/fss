@@ -1,0 +1,41 @@
+project:
+  output-dir: ../docs
+  render:
+    - "[0-9][0-9]_*.qmd"
+
+author: "Dr Massimiliano Canzi"
+
+format:
+  revealjs:
+    theme: [dark, sunset.scss]
+    css: fonts.css
+    embed-resources: true
+    width: 1050
+    height: 700
+    incremental: true
+    transition: fade
+    background-transition: fade
+    transition-speed: fast
+    navigation-mode: linear
+    slide-number: c/t
+    show-slide-number: all
+    controls: true
+    touch: true
+    menu: false
+    center-title-slide: false
+    auto-stretch: false
+    highlight-style: zenburn
+    code-line-numbers: false
+    fig-width: 10
+    fig-height: 4.4
+    fig-align: center
+
+# the slides show figures, not the code that makes them
+execute:
+  echo: false
+  warning: false
+  message: false
+
+knitr:
+  opts_chunk:
+    out.width: "100%"
