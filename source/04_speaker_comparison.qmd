@@ -279,7 +279,7 @@ Shortcuts in fluent speech, used differently by accent and by speaker:
 - But f0 varies a lot within a speaker: louder on the phone, higher in read speech, lower in the morning, higher when agitated
 - Most useful for eliminating suspects, and easy to explain to a court
 
-## f0 in a population
+## Distribution of f0 across speakers
 
 ```{r}
 #| label: f0-pop

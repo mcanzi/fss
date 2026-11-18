@@ -160,7 +160,7 @@ For each pair you matched:
 
 Session 5 showed that disguise lowers the accuracy of earwitnesses. Here you can see which features a disguise changes, and which it leaves alone.
 
-## Disguise in the class
+## How the class disguised their voices
 
 ```{r}
 #| label: disguise

@@ -414,7 +414,7 @@ ggplot(fr, aes(t * 1000, amp, colour = part == "Sum: a complex periodic wave")) 
 
 Try a live spectrogram of your own voice: search for "Chrome Music Lab spectrogram".
 
-## Consonants in the spectrogram
+## Reading consonants in a spectrogram
 
 | Manner | What you see |
 |---|---|
